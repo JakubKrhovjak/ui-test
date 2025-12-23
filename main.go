@@ -64,7 +64,7 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	for _, shape := range g.shapes {
-		shape.Draw(g.x, g.y)
+		shape.Draw(screen, g.x, g.y)
 	}
 }
 

@@ -16,8 +16,8 @@ func NewSquare(size int) *Shape {
 	return &Shape{Image: square}
 }
 
-func (s *Shape) Draw(x, y float64) {
+func (s *Shape) Draw(screen *ebiten.Image, x, y float64) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(x, y)
-	s.DrawImage(s.Image, op)
+	screen.DrawImage(s.Image, op)
 }
