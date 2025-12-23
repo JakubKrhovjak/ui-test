@@ -10,11 +10,12 @@ import (
 )
 
 func main() {
-	square := shape.NewSquareAt(50, 20, 20)
-	square2 := shape.NewSquareAt(30, 100, 100)
+	shapes := make(map[int]*shape.Shape, 2)
+	shapes[1] = shape.NewSquareAt(50, 20, 20)
+	shapes[2] = shape.NewSquareAt(30, 100, 100)
 	mover := mover.NewMover()
 
-	game := game.NewGame(mover, []*shape.Shape{square, square2})
+	game := game.NewGame(mover, shapes)
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}

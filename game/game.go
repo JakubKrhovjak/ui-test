@@ -17,10 +17,10 @@ const (
 type Game struct {
 	x, y   float64
 	mover  *mover.Mover
-	shapes []*shape.Shape
+	shapes map[int]*shape.Shape
 }
 
-func NewGame(mover *mover.Mover, shapes []*shape.Shape) *Game {
+func NewGame(mover *mover.Mover, shapes map[int]*shape.Shape) *Game {
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Ebiten - Pohyblivý čtverec")
 	return &Game{
@@ -32,8 +32,14 @@ func NewGame(mover *mover.Mover, shapes []*shape.Shape) *Game {
 }
 
 func (g *Game) Update() error {
-	for _, shape := range g.shapes {
-		g.mover.Move(shape)
+	for i := ebiten.Key1; i <= ebiten.Key9; i++ {
+		if ebiten.IsKeyPressed(i) {
+			index := int(i - ebiten.Key1)
+			// Zkontroluj, jestli klíč existuje v mapě
+			if shape, exists := g.shapes[index]; exists {
+				g.mover.Move(shape)
+			}
+		}
 	}
 	return nil
 
