@@ -11,8 +11,8 @@ import (
 
 func main() {
 	shapes := make(map[int]*shape.Shape, 2)
-	shapes[1] = shape.NewSquareAt(50, 20, 20)
-	shapes[2] = shape.NewSquareAt(30, 100, 100)
+	shapes[0] = shape.NewSquareAt(50, 20, 20)   // klávesa 1
+	shapes[1] = shape.NewSquareAt(30, 100, 100) // klávesa 2
 	mover := mover.NewMover()
 
 	game := game.NewGame(mover, shapes)

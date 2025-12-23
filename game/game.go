@@ -35,10 +35,7 @@ func (g *Game) Update() error {
 	for i := ebiten.Key1; i <= ebiten.Key9; i++ {
 		if ebiten.IsKeyPressed(i) {
 			index := int(i - ebiten.Key1)
-			// Zkontroluj, jestli klíč existuje v mapě
-			if shape, exists := g.shapes[index]; exists {
-				g.mover.Move(shape)
-			}
+			g.mover.Move(g.shapes[index])
 		}
 	}
 	return nil
