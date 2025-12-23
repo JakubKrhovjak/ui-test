@@ -32,40 +32,16 @@ func NewGame(mover *mover.Mover, shapes []*shape.Shape) *Game {
 }
 
 func (g *Game) Update() error {
-	// Pohyb pomocí šipek
-	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
-		g.x -= moveSpeed
+	for _, shape := range g.shapes {
+		g.mover.Move(shape)
 	}
-	if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
-		g.x += moveSpeed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
-		g.y -= moveSpeed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
-		g.y += moveSpeed
-	}
-
-	// Omezení na hranice obrazovky
-	if g.x < 0 {
-		g.x = 0
-	}
-	if g.x > screenWidth-squareSize {
-		g.x = screenWidth - squareSize
-	}
-	if g.y < 0 {
-		g.y = 0
-	}
-	if g.y > screenHeight-squareSize {
-		g.y = screenHeight - squareSize
-	}
-
 	return nil
+
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	for _, shape := range g.shapes {
-		shape.Draw(screen, g.x, g.y)
+		shape.DrawAtPosition(screen)
 	}
 }
 

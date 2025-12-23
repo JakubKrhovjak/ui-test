@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	square := shape.NewSquare(50)
-	square2 := shape.NewSquare(30)
+	square := shape.NewSquareAt(50, 20, 20)
+	square2 := shape.NewSquareAt(30, 100, 100)
 	mover := mover.NewMover()
 
 	game := game.NewGame(mover, []*shape.Shape{square, square2})
