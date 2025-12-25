@@ -1,6 +1,7 @@
 package game
 
 import (
+	uiColor "ui-test/color"
 	"ui-test/mover"
 	"ui-test/shape"
 
@@ -32,14 +33,18 @@ func NewGame(mover *mover.Mover, shapes map[int]*shape.Shape) *Game {
 }
 
 func (g *Game) Update() error {
-	for i := ebiten.Key1; i <= ebiten.Key9; i++ {
-		if ebiten.IsKeyPressed(i) {
-			index := int(i - ebiten.Key1)
-			g.mover.Move(g.shapes[index])
+	for index, shape := range g.shapes {
+		key := ebiten.Key(int(ebiten.Key1) + index)
+		if ebiten.IsKeyPressed(key) {
+			shape.SetColor(uiColor.Red)
+			g.mover.Move(shape)
+		}
+		if !ebiten.IsKeyPressed(key) {
+			shape.SetColor(uiColor.White)
 		}
 	}
-	return nil
 
+	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
