@@ -46,7 +46,9 @@ func (g *Game) Update() error {
 	// AABB collision: check if cube overlaps target by at least 1 pixel
 	if g.cube.X < g.target.X+g.target.Size && g.cube.X+g.cube.Size > g.target.X &&
 		g.cube.Y < g.target.Y+g.target.Size && g.cube.Y+g.cube.Size > g.target.Y {
-		g.target.Bling(uiColor.Red)
+		if g.target.Blinking == false {
+			g.target.Bling(uiColor.Red)
+		}
 	}
 
 	return nil
@@ -88,9 +90,9 @@ func (g *Game) handleCube() {
 			shape.SetColor(uiColor.Blue)
 			g.mover.Move(shape)
 		}
-		if !ebiten.IsKeyPressed(key) {
-			shape.SetColor(uiColor.White)
-		}
+		//if !ebiten.IsKeyPressed(key) {
+		//	shape.SetColor(uiColor.White)
+		//}
 	}
 
 }

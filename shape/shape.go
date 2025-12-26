@@ -13,7 +13,7 @@ type Shape struct {
 	X, Y     float64
 	color    color.RGBA
 	Size     float64
-	blinking bool
+	Blinking bool
 }
 
 func NewSquare(size int) *Shape {
@@ -45,12 +45,16 @@ func (s *Shape) SetColor(color color.RGBA) {
 }
 
 func (s *Shape) Bling(color color.RGBA) {
+	s.Blinking = true
 	go func() {
 		for i := 0; i < 3; i++ {
 			s.Image.Fill(color)
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 			s.Image.Fill(uiColor.White)
+			time.Sleep(100 * time.Millisecond)
 		}
+
+		s.Blinking = false
 	}()
 
 }
