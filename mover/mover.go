@@ -33,7 +33,15 @@ func (m *Mover) Move(object *shape.Shape) {
 		object.Y += moveSpeed
 	}
 
-	// Omezení na hranice obrazovky
+	checkBounds(object)
+}
+
+func (m *Mover) MoveAt(object *shape.Shape, x float64) {
+	object.X += x
+	checkBounds(object)
+}
+
+func checkBounds(object *shape.Shape) {
 	bounds := object.Bounds()
 	width := float64(bounds.Dx())
 	height := float64(bounds.Dy())
