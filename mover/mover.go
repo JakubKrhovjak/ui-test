@@ -36,8 +36,8 @@ func (m *Mover) Move(object *shape.Shape) {
 	checkBounds(object)
 }
 
-func (m *Mover) MoveAt(object *shape.Shape, x float64) {
-	object.X += x
+func (m *Mover) MoveAt(object *shape.Shape, y float64) {
+	object.Y += y
 	checkBounds(object)
 }
 

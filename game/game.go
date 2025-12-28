@@ -1,6 +1,7 @@
 package game
 
 import (
+	"math/rand"
 	"time"
 	uiColor "ui-test/color"
 	"ui-test/mover"
@@ -69,11 +70,11 @@ func (g *Game) handleTarget(target *shape.Shape) {
 			return
 		}
 
-		if target.X >= screenWidth-target.Size {
+		if target.Y >= screenWidth-target.Size {
 			direction = "left"
 		}
 
-		if target.X == 0 {
+		if target.Y == 0 {
 			direction = "right"
 		}
 
@@ -115,7 +116,7 @@ func (g *Game) inY() bool {
 func (g *Game) destroy() {
 	go func() {
 		time.Sleep(time.Duration(500) * time.Millisecond)
-		g.target = shape.NewSquareAt(50, 0, 20)
+		g.target = shape.NewSquareAt(50, float64(rand.Intn(screenWidth)), 0)
 		g.shapes[0] = g.target
 	}()
 }
