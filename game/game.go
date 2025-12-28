@@ -1,6 +1,7 @@
 package game
 
 import (
+	"time"
 	uiColor "ui-test/color"
 	"ui-test/mover"
 	"ui-test/shape"
@@ -44,11 +45,9 @@ func (g *Game) Update() error {
 	g.handleCube()
 
 	// AABB collision: check if cube overlaps target by at least 1 pixel
-	if g.cube.X < g.target.X+g.target.Size && g.cube.X+g.cube.Size > g.target.X &&
-		g.cube.Y < g.target.Y+g.target.Size && g.cube.Y+g.cube.Size > g.target.Y {
-		if g.target.Blinking == false {
-			g.target.Bling(uiColor.Red)
-		}
+	if g.isHit() {
+		g.target.Bling(uiColor.Red)
+		g.destroy()
 	}
 
 	return nil
@@ -66,6 +65,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 
 func (g *Game) handleTarget(target *shape.Shape) {
 	go func() {
+		if g.isHit() {
+			return
+		}
+
 		if target.X >= screenWidth-target.Size {
 			direction = "left"
 		}
@@ -95,4 +98,24 @@ func (g *Game) handleCube() {
 		//}
 	}
 
+}
+
+func (g *Game) isHit() bool {
+	return g.inX() && g.inY()
+}
+
+func (g *Game) inX() bool {
+	return g.cube.X < g.target.X+g.target.Size && g.cube.X+g.cube.Size > g.target.X
+}
+
+func (g *Game) inY() bool {
+	return g.cube.Y < g.target.Y+g.target.Size && g.cube.Y+g.cube.Size > g.target.Y
+}
+
+func (g *Game) destroy() {
+	go func() {
+		time.Sleep(time.Duration(500) * time.Millisecond)
+		g.target = shape.NewSquareAt(50, 0, 20)
+		g.shapes[0] = g.target
+	}()
 }

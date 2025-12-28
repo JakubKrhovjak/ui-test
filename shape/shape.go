@@ -56,5 +56,4 @@ func (s *Shape) Bling(color color.RGBA) {
 
 		s.Blinking = false
 	}()
-
 }
